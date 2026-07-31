@@ -1,0 +1,9 @@
+{
+  "dp_sfx1": {
+    "category": "master",
+    "subtitle": "subtitles.dp-clutter.sfx1",
+    "sounds": [
+      "dp-clutter:sfx1"
+    ]
+  }
+}
