@@ -29,6 +29,7 @@ public class DisplayScreenTick implements ClientModInitializer {
 
     //DP-Tape.png
     private static int dpTapeX = -496 - 64;
+    private static int dpTapeEnd = 0;
     //private static boolean dpTapeCycle = true;
 
     //DP-Rocket
@@ -141,10 +142,22 @@ public class DisplayScreenTick implements ClientModInitializer {
             //DP-Tape
             if (client != null) {
                 if (MinecraftClient.getInstance().world != null) {
-                    if (dpTapeX < 0) {
+                    if (client.getWindow().getScaledWidth() <= 480) {
+                        dpTapeEnd = 0;
+                        if (dpTapeX > dpTapeEnd) {
+                            dpTapeX = dpTapeEnd;
+                        }
+                    } else {
+                        dpTapeEnd = client.getWindow().getScaledWidth() / 4;
+                    }
+                    //DeadpoolInYourArea.LOGGER.info("Window Width: " + client.getWindow().getScaledWidth());
+                    //DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
+                    //DeadpoolInYourArea.LOGGER.info("DpTapeEnd: " + dpTapeEnd);
+                    if (dpTapeX < dpTapeEnd) {
                         dpTapeX = dpTapeX + 8;
                         // -496
-                        //DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
+                    } else if (dpTapeX > dpTapeEnd) {
+                        dpTapeX--;
                     }
                 } else {
                     dpTapeX = -496 - 64;
@@ -201,7 +214,6 @@ public class DisplayScreenTick implements ClientModInitializer {
                             dpScooterX = random.nextInt(winWidth.get() / 2, winWidth.get() - 128);
                             dpScooterY = random.nextInt(0, 84);
                             scooterDestination = dpScooterX - 16;
-                            System.out.println("I ran :D");
 
                             scooterFinished = false;
                             //DeadpoolInYourArea.LOGGER.info("dpScooterX: " + dpScooterX + "\ndpScooterY: " + dpScooterY);
@@ -225,7 +237,7 @@ public class DisplayScreenTick implements ClientModInitializer {
                     } else {
                         if (!scooterFinished) {
                             scooterDelay = random.nextInt(20, 61);
-                            DeadpoolInYourArea.LOGGER.info("Scooter Delay: " + scooterDelay);
+                            //DeadpoolInYourArea.LOGGER.info("Scooter Delay: " + scooterDelay);
                             dpScooterX = -128;
                             dpScooterY = -128;
                         }

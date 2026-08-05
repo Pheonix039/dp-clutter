@@ -3,6 +3,7 @@ package net.auuugh;
 import net.auuugh.client.DisplayScreen;
 import net.auuugh.client.DisplayScreenTick;
 import net.auuugh.common.EffectChecker;
+import net.auuugh.effect.ModEffects;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.block.Portal;
@@ -28,6 +29,7 @@ public class DeadpoolInYourArea implements ModInitializer {
 		EffectChecker.register();
 		DisplayScreenTick.register();
 		DisplayScreen.register();
+		ModEffects.register();
 	}
 
 	public static Identifier id(String path) {
