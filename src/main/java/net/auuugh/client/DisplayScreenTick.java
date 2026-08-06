@@ -1,11 +1,11 @@
 package net.auuugh.client;
 
 import net.auuugh.DeadpoolInYourArea;
+import net.auuugh.effect.ModEffects;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -60,6 +60,9 @@ public class DisplayScreenTick implements ClientModInitializer {
     //Scooter & Run Spawner
     private static int rsSpawner = 0;
 
+    //SFX
+    private static int sfxCounter = 0;
+
     public static void register() {
         if (MinecraftClient.getInstance().world != null && client != null) {
             //DisplayScreenTick.math();
@@ -76,82 +79,80 @@ public class DisplayScreenTick implements ClientModInitializer {
                 winWidth.set(client.getWindow().getScaledWidth());
                 winHeight.set(client.getWindow().getScaledHeight());
                 flipSwitchCounter++;
-            }
-            //Movement math for the pngs
-            //DP-Big.png + flipped
-            if (flipSwitchCounter % 40 == 0) {
-                flipSwitchChecker = random.nextInt(99);
-                //DeadpoolInYourArea.LOGGER.info("flipSwitchChecker: " + flipSwitchChecker);
-                flipSwitchCounter = 0;
-                if (flipSwitchChecker % 2 == 0) {
-                    flipSwitch = true;
-                } else {
-                    flipSwitch = false;
-                }
-                //DeadpoolInYourArea.LOGGER.info("flipSwitch: " + flipSwitch);
-            }
-
-            if (flipSwitch) {
-                //DP-Big.png
-                double y2 = 54;
-                double y3 = 34;
-
-                if (dpBigCycle2) {
-                    dpBigY1 += (y2 - dpBigY1) * 0.2;
-                    //DeadpoolInYourArea.LOGGER.info("DpBigY1 (up): " + dpBigY1);
-                    if (dpBigY1 >= 53.9 || dpBigY1 > y2) {
-                        dpBigY1 = y2;
-                        dpBigCycle2 = false;
+                DeadpoolInYourArea.LOGGER.info("winWidth: " + winWidth.get());
+                DeadpoolInYourArea.LOGGER.info("winHeight: " + winHeight.get());
+                if (client.player.hasStatusEffect(ModEffects.DP_CLUTTER)) {
+                    sfxCounter++;
+                    if (sfxCounter == 100) {
+                        sfxCounter = 0;
                     }
-                } else {
-                    dpBigY1 += (y3 - dpBigY1) * 0.2;
-                    //DeadpoolInYourArea.LOGGER.info("DpBigY1 (down): " + dpBigY1);
-                    if (dpBigY1 <= 35.00001 || dpBigY1 < y3) {
-                        dpBigY1 = y3;
-                        dpBigCycle2 = true;
-                    }
-                }
-            } else {
-                dpBigY1 = -128;
-            }
 
-            if (!flipSwitch) {
-                //DP-Big flipped
-                double y4 = 34;
-                double y5 = 14;
-
-                if (dpBigCycle) {
-                    dpBigY2 += (y4 - dpBigY2) * 0.2;
-                    //DeadpoolInYourArea.LOGGER.info("DpBigY1 (up): " + dpBigY1);
-                    if (dpBigY2 >= 33.9 || dpBigY2 > y4) {
-                        dpBigY2 = y4;
-                        dpBigCycle = false;
+                    //Movement math for the pngs
+                    //DP-Big.png + flipped
+                    if (flipSwitchCounter % 40 == 0) {
+                        flipSwitchChecker = random.nextInt(99);
+                        //DeadpoolInYourArea.LOGGER.info("flipSwitchChecker: " + flipSwitchChecker);
+                        flipSwitchCounter = 0;
+                        if (flipSwitchChecker % 2 == 0) {
+                            flipSwitch = true;
+                        } else {
+                            flipSwitch = false;
+                        }
+                        //DeadpoolInYourArea.LOGGER.info("flipSwitch: " + flipSwitch);
                     }
-                } else {
-                    dpBigY2 += (y5 - dpBigY2) * 0.2;
-                    //DeadpoolInYourArea.LOGGER.info("DpBigY1 (down): " + dpBigY1);
-                    if (dpBigY2 <= 15.00001 || dpBigY2 < y5) {
-                        dpBigY2 = y5;
-                        dpBigCycle = true;
-                    }
-                }
-            } else {
-                dpBigY2 = -128;
-            }
 
-            //DP-Tape
-            if (client != null) {
-                if (MinecraftClient.getInstance().world != null) {
-                    if (client.getWindow().getScaledWidth() <= 480) {
-                        dpTapeEnd = 0;
-                        if (dpTapeX > dpTapeEnd) {
-                            dpTapeX = dpTapeEnd;
+                    if (flipSwitch) {
+                        //DP-Big.png
+                        double y2 = 54;
+                        double y3 = 34;
+
+                        if (dpBigCycle2) {
+                            dpBigY1 += (y2 - dpBigY1) * 0.2;
+                            //DeadpoolInYourArea.LOGGER.info("DpBigY1 (up): " + dpBigY1);
+                            if (dpBigY1 >= 53.9 || dpBigY1 > y2) {
+                                dpBigY1 = y2;
+                                dpBigCycle2 = false;
+                            }
+                        } else {
+                            dpBigY1 += (y3 - dpBigY1) * 0.2;
+                            //DeadpoolInYourArea.LOGGER.info("DpBigY1 (down): " + dpBigY1);
+                            if (dpBigY1 <= 35.00001 || dpBigY1 < y3) {
+                                dpBigY1 = y3;
+                                dpBigCycle2 = true;
+                            }
                         }
                     } else {
-                        dpTapeEnd = client.getWindow().getScaledWidth() / 4;
+                        dpBigY1 = -128;
                     }
+
+                    if (!flipSwitch) {
+                        //DP-Big flipped
+                        double y4 = 34;
+                        double y5 = 14;
+
+                        if (dpBigCycle) {
+                            dpBigY2 += (y4 - dpBigY2) * 0.2;
+                            //DeadpoolInYourArea.LOGGER.info("DpBigY1 (up): " + dpBigY1);
+                            if (dpBigY2 >= 33.9 || dpBigY2 > y4) {
+                                dpBigY2 = y4;
+                                dpBigCycle = false;
+                            }
+                        } else {
+                            dpBigY2 += (y5 - dpBigY2) * 0.2;
+                            //DeadpoolInYourArea.LOGGER.info("DpBigY1 (down): " + dpBigY1);
+                            if (dpBigY2 <= 15.00001 || dpBigY2 < y5) {
+                                dpBigY2 = y5;
+                                dpBigCycle = true;
+                            }
+                        }
+                    } else {
+                        dpBigY2 = -128;
+                    }
+
+                    //DP-Tape
+                    dpTapeEnd = (-1024 + winWidth.get());
                     //DeadpoolInYourArea.LOGGER.info("Window Width: " + client.getWindow().getScaledWidth());
-                    //DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
+                    DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
                     //DeadpoolInYourArea.LOGGER.info("DpTapeEnd: " + dpTapeEnd);
                     if (dpTapeX < dpTapeEnd) {
                         dpTapeX = dpTapeX + 8;
@@ -159,16 +160,10 @@ public class DisplayScreenTick implements ClientModInitializer {
                     } else if (dpTapeX > dpTapeEnd) {
                         dpTapeX--;
                     }
-                } else {
-                    dpTapeX = -496 - 64;
-                }
-            }
 
-            //DP-Rocket
-            if (client != null) {
-                if (MinecraftClient.getInstance().world != null) {
+                    //DP-Rocket
                     if (changeRocketY) {
-                        dpRocketY = random.nextInt(0, 84);
+                        dpRocketY = random.nextInt(0, winHeight.get() - 32);
                         //DeadpoolInYourArea.LOGGER.info("Rocket Y: " + dpRocketY);
                         changeRocketY = false;
                     }
@@ -181,17 +176,13 @@ public class DisplayScreenTick implements ClientModInitializer {
                         dpRocketX = -64;
                         changeRocketY = true;
                     }
-                }
-            }
 
-            //DP-Rocket Flipped
-            if (client != null) {
-                if (MinecraftClient.getInstance().world != null) {
+                    //DP-Rocket Flipped
                     //DeadpoolInYourArea.LOGGER.info("dpRocketX2: " + dpRocketX2);
                     //DeadpoolInYourArea.LOGGER.info("dpRocketY2: " + dpRocketY2);
                     //DeadpoolInYourArea.LOGGER.info("changeRocketY2: " + changeRocketY2);
                     if (changeRocketY2) {
-                        dpRocketY2 = random.nextInt(0, 84);
+                        dpRocketY2 = random.nextInt(0, winHeight.get() - 32);
                         changeRocketY2 = false;
                     }
 
@@ -201,12 +192,8 @@ public class DisplayScreenTick implements ClientModInitializer {
                         dpRocketX2 = winWidth.get() + 32;
                         changeRocketY2 = true;
                     }
-                }
-            }
 
-            //DP-Scooter
-            if (client != null) {
-                if (MinecraftClient.getInstance().world != null) {
+                    //DP-Scooter
                     if (scooterFinished) {
                         if (scooterDelay > 0) {
                             scooterDelay--;
@@ -243,12 +230,8 @@ public class DisplayScreenTick implements ClientModInitializer {
                         }
                         scooterFinished = true;
                     }
-                }
-            }
 
-            //DP-Run
-            if (client != null) {
-                if (MinecraftClient.getInstance().world != null) {
+                    //DP-Run
                     if (runFinished) {
                         if (runDelay > 0) {
                             runDelay--;
@@ -281,9 +264,13 @@ public class DisplayScreenTick implements ClientModInitializer {
                         }
                         runFinished = true;
                     }
+                } else {
+                    dpTapeX = -1024 - 64;
+                    sfxCounter = 0;
+                    dpRocketX = -128;
+                    dpRocketX2 = winWidth.get() + 64;
                 }
             }
-
         });
     }
 
@@ -337,5 +324,11 @@ public class DisplayScreenTick implements ClientModInitializer {
 
     public static int getDpRunY() {
         return dpRunY;
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    public static int getSfxCounter() {
+        return sfxCounter;
     }
 }

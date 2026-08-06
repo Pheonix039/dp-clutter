@@ -2,8 +2,8 @@ package net.auuugh;
 
 import net.auuugh.client.DisplayScreen;
 import net.auuugh.client.DisplayScreenTick;
-import net.auuugh.common.EffectChecker;
 import net.auuugh.effect.ModEffects;
+import net.auuugh.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.block.Portal;
@@ -26,10 +26,10 @@ public class DeadpoolInYourArea implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Does a lord icon do bonus damage?");
-		EffectChecker.register();
 		DisplayScreenTick.register();
 		DisplayScreen.register();
 		ModEffects.register();
+		ModSounds.register();
 	}
 
 	public static Identifier id(String path) {

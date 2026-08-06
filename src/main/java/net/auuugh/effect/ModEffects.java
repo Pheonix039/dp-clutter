@@ -9,7 +9,9 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class ModEffects {
-    public static final RegistryEntry<StatusEffect> DEADPOOL = registerStatusEffect("deadpool", new DeadpoolEffect(StatusEffectCategory.BENEFICIAL, 0x8b1a1a));
+    public static final RegistryEntry<StatusEffect> DP_CLUTTER = registerStatusEffect("dp_clutter", new DeadpoolEffect(StatusEffectCategory.BENEFICIAL, 0x8b1a1a));
+
+    public static final RegistryEntry<StatusEffect> DP_AOE = registerStatusEffect("dp_aoe", new DeadpoolAreaEffect(StatusEffectCategory.BENEFICIAL, 0x8b1a1a));
 
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String id, StatusEffect effect) {

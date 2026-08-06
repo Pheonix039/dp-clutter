@@ -1,17 +1,11 @@
 package net.auuugh.client;
 
 import net.auuugh.DeadpoolInYourArea;
+import net.auuugh.effect.ModEffects;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DisplayScreen {
     //Aww! Look at all the widdle Wades!
@@ -37,25 +31,28 @@ public class DisplayScreen {
                 int winWidth = client.getWindow().getScaledWidth();
                 int winHeight = client.getWindow().getScaledHeight();
                 //renders
-                displayDPBig(drawContext, DisplayScreenTick.getDPBigY1(), client, winWidth,  winHeight);
-                displayDPBigFlipped(drawContext, DisplayScreenTick.getDPBigY2(), client, winWidth,  winHeight);
+                if (client.player.hasStatusEffect(ModEffects.DP_CLUTTER)) {
+                    displayDPBig(drawContext, DisplayScreenTick.getDPBigY1(), client, winWidth,  winHeight);
+                    displayDPBigFlipped(drawContext, DisplayScreenTick.getDPBigY2(), client, winWidth,  winHeight);
 
-                displayDPTape(drawContext, DisplayScreenTick.getDpTapeX(), client, winWidth,  winHeight);
+                    displayDPTape(drawContext, DisplayScreenTick.getDpTapeX(), client, winWidth,  winHeight);
 
-                displayDPRocket(drawContext, DisplayScreenTick.getDpRocketX(),  DisplayScreenTick.getDpRocketY(), client, winWidth,  winHeight);
-                displayDPRocketFlipped(drawContext, DisplayScreenTick.getDpRocketX2(),  DisplayScreenTick.getDpRocketY2(), client, winWidth,  winHeight);
+                    displayDPRocket(drawContext, DisplayScreenTick.getDpRocketX(),  DisplayScreenTick.getDpRocketY(), client, winWidth,  winHeight);
+                    displayDPRocketFlipped(drawContext, DisplayScreenTick.getDpRocketX2(),  DisplayScreenTick.getDpRocketY2(), client, winWidth,  winHeight);
 
-                displayDPScooter(drawContext, DisplayScreenTick.getDpScooterX(), DisplayScreenTick.getDpScooterY(), client, winWidth,  winHeight);
-                displayDPRun(drawContext, DisplayScreenTick.getDpRunX(), DisplayScreenTick.getDpRunY(), client, winWidth,  winHeight);
+                    displayDPScooter(drawContext, DisplayScreenTick.getDpScooterX(), DisplayScreenTick.getDpScooterY(), client, winWidth,  winHeight);
+                    displayDPRun(drawContext, DisplayScreenTick.getDpRunX(), DisplayScreenTick.getDpRunY(), client, winWidth,  winHeight);
 
+                    if (DisplayScreenTick.getSfxCounter() == 0) {
+                        //MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(ModSounds.DEADPOOL_SFX, 1.0f));
+                    }
+                }
             }
         });
-
-
     }
 
     public static void displayDPBig(DrawContext drawContext, double y, MinecraftClient client, int winWidth, int winHeight) {
-        //DeadpoolInYourArea.LOGGER.info("Who's the man? Wade is! ");
+        //DeadpoolInYourArea.LOGGER.info("Who's the man? Wade is!");
         //AtomicInteger winWidth = new AtomicInteger();
         //AtomicInteger winHeight = new AtomicInteger();
         //MinecraftClient client = MinecraftClient.getInstance();
@@ -92,8 +89,8 @@ public class DisplayScreen {
                 dpTapeTex,
                 movementX, winHeight - 64,
                 0f, 0f,
-                496, 64,
-                496, 64
+                1024, 64,
+                1024, 64
         );
     }
 
