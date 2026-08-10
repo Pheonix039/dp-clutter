@@ -1,9 +1,16 @@
 {
   "dp_sfx1": {
     "category": "master",
-    "subtitle": "subtitles.dp-clutter.sfx1",
+    "subtitle": "subtitles.dp-clutter.clutter.sfx1",
     "sounds": [
-      "dp-clutter:sfx1"
+      "dp-clutter:clutter/sfx1",
+      "dp-clutter:clutter/sfx2",
+      "dp-clutter:clutter/sfx3",
+      "dp-clutter:clutter/sfx4",
+      "dp-clutter:clutter/sfx5",
+      "dp-clutter:clutter/sfx_special1",
+      "dp-clutter:clutter/sfx_special2",
+      "dp-clutter:clutter/sfx_special3"
     ]
   }
 }

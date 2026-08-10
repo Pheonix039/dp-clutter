@@ -1,5 +1,19 @@
 {
-  "effect.dp-clutter.dp_clutter": "Woohoo!",
-  "effect.dp-clutter.dp_aoe": "DP's Kick@$$ Effect",
-  "subtitles.dp-clutter.sfx1": "Woohoo!"
+  "effect.dp-clutter.dp_clutter": "PWNED",
+  "effect.dp-clutter.dp_aoe": "DP's Kick@$$ Buff",
+  "effect.dp-clutter.dp_aoe_gamerule": "DP's Kick@$$ Buff (Creative Mode Ed./No Particles)",
+  "subtitles.dp-clutter.clutter.sfx1": "PWNED",
+
+  "item.minecraft.potion.effect.deadpool_potion": "Deadpool's Kick@$$ Potion",
+  "item.minecraft.splash_potion.effect.deadpool_potion": "Deadpool's Kick@$$ Splash Potion",
+  "item.minecraft.lingering_potion.effect.deadpool_potion": "Deadpool's Kick@$$ Lingering Potion",
+  "item.minecraft.tipped_arrow.effect.deadpool_potion": "Deadpool's Kick@$$ Tipped Arrow",
+
+  "item.minecraft.potion.effect.pwned_deadpool_potion": "Deadpool's PWNED Potion",
+  "item.minecraft.splash_potion.effect.pwned_deadpool_potion": "Deadpool's PWNED Splash Potion",
+  "item.minecraft.lingering_potion.effect.pwned_deadpool_potion": "Deadpool's PWNED Lingering Potion",
+  "item.minecraft.tipped_arrow.effect.pwned_deadpool_potion": "Deadpool's PWNED Tipped Arrow",
+
+  "gamerule.deadpoolsChallenge": "Deadpool's Kick@$$ Challenge",
+  "gamerule.deadpoolsChallenge.description": "Ooh! Pick me! Pick me! PLEEEEEASE!"
 }

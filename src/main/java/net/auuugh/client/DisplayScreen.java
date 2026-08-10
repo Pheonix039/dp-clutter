@@ -2,12 +2,13 @@ package net.auuugh.client;
 
 import net.auuugh.DeadpoolInYourArea;
 import net.auuugh.effect.ModEffects;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-public class DisplayScreen {
+public class DisplayScreen implements ClientModInitializer {
     //Aww! Look at all the widdle Wades!
     private static final Identifier dpBigTex = Identifier.of(DeadpoolInYourArea.MOD_ID + ":textures/clutter/dp-big.png");
     private static final Identifier dpBigTexFlipped = Identifier.of(DeadpoolInYourArea.MOD_ID + ":textures/clutter/flipped/dp-big-flipped.png");
@@ -23,7 +24,8 @@ public class DisplayScreen {
 
 
 
-    public static void register() {
+    @Override
+    public void onInitializeClient() {
         MinecraftClient client = MinecraftClient.getInstance();
 
         HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
@@ -32,20 +34,16 @@ public class DisplayScreen {
                 int winHeight = client.getWindow().getScaledHeight();
                 //renders
                 if (client.player.hasStatusEffect(ModEffects.DP_CLUTTER)) {
-                    displayDPBig(drawContext, DisplayScreenTick.getDPBigY1(), client, winWidth,  winHeight);
-                    displayDPBigFlipped(drawContext, DisplayScreenTick.getDPBigY2(), client, winWidth,  winHeight);
+                    displayDPBig(drawContext, DisplayMath.getDPBigY1(), client, winWidth,  winHeight);
+                    displayDPBigFlipped(drawContext, DisplayMath.getDPBigY2(), client, winWidth,  winHeight);
 
-                    displayDPTape(drawContext, DisplayScreenTick.getDpTapeX(), client, winWidth,  winHeight);
+                    displayDPTape(drawContext, DisplayMath.getDpTapeX(), client, winWidth,  winHeight);
 
-                    displayDPRocket(drawContext, DisplayScreenTick.getDpRocketX(),  DisplayScreenTick.getDpRocketY(), client, winWidth,  winHeight);
-                    displayDPRocketFlipped(drawContext, DisplayScreenTick.getDpRocketX2(),  DisplayScreenTick.getDpRocketY2(), client, winWidth,  winHeight);
+                    displayDPRocket(drawContext, DisplayMath.getDpRocketX(),  DisplayMath.getDpRocketY(), client, winWidth,  winHeight);
+                    displayDPRocketFlipped(drawContext, DisplayMath.getDpRocketX2(),  DisplayMath.getDpRocketY2(), client, winWidth,  winHeight);
 
-                    displayDPScooter(drawContext, DisplayScreenTick.getDpScooterX(), DisplayScreenTick.getDpScooterY(), client, winWidth,  winHeight);
-                    displayDPRun(drawContext, DisplayScreenTick.getDpRunX(), DisplayScreenTick.getDpRunY(), client, winWidth,  winHeight);
-
-                    if (DisplayScreenTick.getSfxCounter() == 0) {
-                        //MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(ModSounds.DEADPOOL_SFX, 1.0f));
-                    }
+                    displayDPScooter(drawContext, DisplayMath.getDpScooterX(), DisplayMath.getDpScooterY(), client, winWidth,  winHeight);
+                    displayDPRun(drawContext, DisplayMath.getDpRunX(), DisplayMath.getDpRunY(), client, winWidth,  winHeight);
                 }
             }
         });

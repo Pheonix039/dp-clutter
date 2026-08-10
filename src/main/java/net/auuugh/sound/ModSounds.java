@@ -7,7 +7,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
-    public static final SoundEvent DEADPOOL_SFX = registerSoundEvent("dp_sfx1");
+    public static final SoundEvent DP_SFX1 = registerSoundEvent("dp_sfx1");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(DeadpoolInYourArea.MOD_ID, name);

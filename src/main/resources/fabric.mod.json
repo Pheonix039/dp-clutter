@@ -19,7 +19,9 @@
 			"net.auuugh.DeadpoolInYourArea"
 		],
 		"client": [
-			"net.auuugh.client.DisplayScreenTick"
+			"net.auuugh.client.DisplayScreen",
+			"net.auuugh.client.DisplayMath",
+			"net.auuugh.client.PlaySound"
 		]
 	},
 	"depends": {

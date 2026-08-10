@@ -9,8 +9,8 @@ import net.minecraft.client.MinecraftClient;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DisplayScreenTick implements ClientModInitializer {
-    private static MinecraftClient client = MinecraftClient.getInstance();
+public class DisplayMath implements ClientModInitializer {
+    static MinecraftClient client = MinecraftClient.getInstance();
     //Global
     private static Random random = new Random();
 
@@ -63,11 +63,7 @@ public class DisplayScreenTick implements ClientModInitializer {
     //SFX
     private static int sfxCounter = 0;
 
-    public static void register() {
-        if (MinecraftClient.getInstance().world != null && client != null) {
-            //DisplayScreenTick.math();
-        }
-    }
+    //public static void register() {}
 
     @Override
     public void onInitializeClient() {
@@ -75,15 +71,16 @@ public class DisplayScreenTick implements ClientModInitializer {
         AtomicInteger winHeight = new AtomicInteger();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (MinecraftClient.getInstance().world != null && client != null) {
+            if (client.world != null && client != null) {
                 winWidth.set(client.getWindow().getScaledWidth());
                 winHeight.set(client.getWindow().getScaledHeight());
                 flipSwitchCounter++;
-                DeadpoolInYourArea.LOGGER.info("winWidth: " + winWidth.get());
-                DeadpoolInYourArea.LOGGER.info("winHeight: " + winHeight.get());
+                //DeadpoolInYourArea.LOGGER.info("winWidth: " + winWidth.get());
+                //DeadpoolInYourArea.LOGGER.info("winHeight: " + winHeight.get());
                 if (client.player.hasStatusEffect(ModEffects.DP_CLUTTER)) {
                     sfxCounter++;
-                    if (sfxCounter == 100) {
+                    //DeadpoolInYourArea.LOGGER.info("sfxCounter: " + sfxCounter);
+                    if (sfxCounter == 120) {
                         sfxCounter = 0;
                     }
 
@@ -152,7 +149,7 @@ public class DisplayScreenTick implements ClientModInitializer {
                     //DP-Tape
                     dpTapeEnd = (-1024 + winWidth.get());
                     //DeadpoolInYourArea.LOGGER.info("Window Width: " + client.getWindow().getScaledWidth());
-                    DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
+                    //DeadpoolInYourArea.LOGGER.info("DpTapeX: " + dpTapeX);
                     //DeadpoolInYourArea.LOGGER.info("DpTapeEnd: " + dpTapeEnd);
                     if (dpTapeX < dpTapeEnd) {
                         dpTapeX = dpTapeX + 8;
@@ -266,9 +263,9 @@ public class DisplayScreenTick implements ClientModInitializer {
                     }
                 } else {
                     dpTapeX = -1024 - 64;
-                    sfxCounter = 0;
-                    dpRocketX = -128;
-                    dpRocketX2 = winWidth.get() + 64;
+                    sfxCounter = -1;
+                    dpRocketX = -256;
+                    dpRocketX2 = winWidth.get() + 256;
                 }
             }
         });
@@ -330,5 +327,9 @@ public class DisplayScreenTick implements ClientModInitializer {
 
     public static int getSfxCounter() {
         return sfxCounter;
+    }
+
+    public static void setSfxCounter(int newNum) {
+        sfxCounter = newNum;
     }
 }
