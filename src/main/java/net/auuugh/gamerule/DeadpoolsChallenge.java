@@ -38,13 +38,15 @@ public class DeadpoolsChallenge {
                     //DeadpoolInYourArea.LOGGER.info("I ran :D");
                     for (ServerWorld serverWorld : world.getServer().getWorlds()) {
                         tickCounter++;
-                        if (tickCounter % 100 == 0) {
+                        if (tickCounter % 80 == 0) {
                             //code that totally works goes here
                             world.getEntitiesByType(TypeFilter.instanceOf(HostileEntity.class), hostile -> true)
                                     .forEach(hostileMob -> {
-                                        hostileMob.addStatusEffect(applyEff);
+                                        if (!hostileMob.hasStatusEffect(ModEffects.DP_AOE_2)) {
+                                            hostileMob.addStatusEffect(applyEff);
+                                        }
                                     });
-                            activateEff = true;
+                            //activateEff = true;
                             tickCounter = 0;
                             //DeadpoolInYourArea.LOGGER.info("I ran :D");
                         }

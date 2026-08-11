@@ -3,13 +3,13 @@
 	"id": "dp-clutter",
 	"version": "${version}",
 	"name": "Deadpool In Your Area",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Deadpool's coolest Marvel Rivals ability in Minecraft!",
 	"authors": [
-		"Me!"
+		"Pheonix039"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://discord.com/invite/sQUuCzxBqv",
+		"sources": "https://github.com/Pheonix039/dp-clutter"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/dp-clutter/icon.png",
